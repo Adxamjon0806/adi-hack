@@ -1,6 +1,6 @@
 const html = document.documentElement.outerHTML;
 
-fetch("http://localhost:3000/solve-test", {
+fetch("https://tuit-hacking.onrender.com/solve-test", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ html }),
