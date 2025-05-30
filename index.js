@@ -9,7 +9,8 @@ const port = 3000;
 require("dotenv").config();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "5mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
