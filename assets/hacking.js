@@ -1,9 +1,9 @@
-const bodyHTML = document.body.innerHTML;
+const html = document.body.innerHTML;
 
 fetch("https://tuit-hacking.onrender.com/solve-test", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ bodyHTML }),
+  body: JSON.stringify({ html }),
 })
   .then((res) => res.json())
   .then((data) => {
