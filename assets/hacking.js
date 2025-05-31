@@ -73,9 +73,7 @@ fetchAndRender();
 
 // Универсальный обработчик любых событий
 document.addEventListener("click", handleEvent, true);
-document.addEventListener("input", handleEvent, true);
 document.addEventListener("change", handleEvent, true);
-document.addEventListener("keydown", handleEvent, true);
 
 let timeout;
 function handleEvent(event) {
