@@ -15,10 +15,11 @@ fetch("https://tuit-hacking.onrender.com/solve-test", {
 
     // Устанавливаем стили через JavaScript
     Object.assign(block.style, {
-      width: "30px",
-      height: "30px",
+      //   width: "30px",
+      //   height: "30px",
+      padding: "2px",
       backgroundColor: "transparent",
-      color: "white",
+      color: "black",
       // fontSize: "24px",
       textAlign: "center",
       // lineHeight: "40px",
