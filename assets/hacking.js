@@ -11,7 +11,7 @@ async function fetchAndRender() {
     .then((res) => res.json())
     .then((data) => {
       console.log("Ответ:", data.answer); // например "B"
-      if (block) {
+      if (document.getElementById("draggable")) {
         block.textContent = data.answer;
       } else {
         const block = document.createElement("div");
