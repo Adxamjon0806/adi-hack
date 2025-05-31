@@ -12,7 +12,7 @@ async function fetchAndRender() {
     .then((data) => {
       console.log("Ответ:", data.answer); // например "B"
       if (document.getElementById("draggable")) {
-        block.textContent = data.answer;
+        document.getElementById("draggable").textContent = data.answer;
       } else {
         const block = document.createElement("div");
         block.textContent = data.answer;
