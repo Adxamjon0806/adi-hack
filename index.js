@@ -42,7 +42,7 @@ app.post("/solve-test", async (req, res) => {
   `;
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4-0125-preview",
+      model: "gpt-4.1-mini",
       messages: [
         {
           role: "system",
