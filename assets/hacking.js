@@ -1,7 +1,7 @@
-const html = document.body.innerHTML;
 let isUserEvent = false; // Флаг для игнорирования автособытий
 
 async function fetchAndRender() {
+  const html = document.body.innerHTML;
   isUserEvent = false; // Перед обновлением выключаем реакцию
   fetch("https://tuit-hacking.onrender.com/solve-test", {
     method: "POST",
