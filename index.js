@@ -17,7 +17,7 @@ const openai = new OpenAI({
 });
 
 // Отдаём js файл по конкретному пути
-app.get("/custom-script.js", (req, res) => {
+app.get("/script.js", (req, res) => {
   res.sendFile(path.join(__dirname, "assets", "hacking.js"));
 });
 
