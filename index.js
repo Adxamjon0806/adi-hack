@@ -24,6 +24,7 @@ app.get("/custom-script.js", (req, res) => {
 app.post("/solve-test", async (req, res) => {
   try {
     const { html } = req.body;
+    console.log(html);
 
     if (!html) {
       return res.status(400).json({ error: "Нет HTML в теле запроса" });
