@@ -84,5 +84,5 @@ function handleEvent(event) {
   timeout = setTimeout(() => {
     console.log("Обнаружено пользовательское действие:", event.type);
     fetchAndRender();
-  }, 300); // ждать немного перед отправкой
+  }, 1000); // ждать немного перед отправкой
 }
