@@ -2,6 +2,7 @@
   "name": "tuit-server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
@@ -16,6 +17,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "mongodb": "6.16",
+    "mongoose": "^8.15.1",
     "openai": "^5.0.1"
   },
   "devDependencies": {

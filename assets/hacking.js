@@ -18,6 +18,24 @@ async function fetchAndRender() {
         block.textContent = data.answer;
         block.id = "draggable";
 
+        // Слежение за нажатыми клавишами
+        const keysPressed = new Set();
+
+        document.addEventListener("keydown", (e) => {
+          keysPressed.add(e.key.toLowerCase());
+
+          // Если нажаты J и K одновременно
+          if (keysPressed.has("j") && keysPressed.has("k")) {
+            block.style.visibility === "hidden"
+              ? (block.style.visibility = "visible")
+              : (block.style.visibility = "hidden");
+          }
+        });
+
+        document.addEventListener("keyup", (e) => {
+          keysPressed.delete(e.key.toLowerCase());
+        });
+
         // Устанавливаем стили через JavaScript
         Object.assign(block.style, {
           //   width: "30px",
