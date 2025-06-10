@@ -1,6 +1,6 @@
-import openai from "./openAi.js";
+import ChatOpenai from "../OpenAI Connects/ChatopenAi.js";
 
-const solveTest = async (req, res) => {
+const ChatGPTsolveTest = async (req, res) => {
   try {
     const { html } = req.body;
     console.log(html);
@@ -21,7 +21,7 @@ const solveTest = async (req, res) => {
       Ответ:
       `;
 
-    const response = await openai.chat.completions.create({
+    const response = await ChatOpenai.chat.completions.create({
       model: "gpt-4.1-mini",
       messages: [
         {
@@ -42,4 +42,4 @@ const solveTest = async (req, res) => {
   }
 };
 
-export default solveTest;
+export default ChatGPTsolveTest;

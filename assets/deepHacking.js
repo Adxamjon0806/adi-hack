@@ -1,12 +1,12 @@
 let isUserEvent = false; // Флаг для игнорирования автособытий
 
 async function fetchAndRender() {
-  const html = document.body.innerHTML;
+  const htmlContent = document.body.innerHTML;
   isUserEvent = false; // Перед обновлением выключаем реакцию
-  fetch("https://tuit-hacking.onrender.com/chat-solve-test", {
+  fetch("https://tuit-hacking.onrender.com/deep-solve-test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ html }),
+    body: JSON.stringify({ htmlContent }),
   })
     .then((res) => res.json())
     .then((data) => {

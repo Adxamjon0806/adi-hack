@@ -6,8 +6,8 @@ dotenv.config(); // нужно, если используешь .env здесь 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Не указан OPENAI_API_KEY в .env");
 }
-const openai = new OpenAI({
+const ChatOpenai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export default openai;
+export default ChatOpenai;
