@@ -1,6 +1,4 @@
-import dotenv from "dotenv";
-
-dotenv.config();
+import DeepseekOpenai from "../OpenAI Connects/DeepseekopenAi.js";
 
 const DeepseekSolveTest = async (req, res) => {
   try {
@@ -18,18 +16,9 @@ const DeepseekSolveTest = async (req, res) => {
         `;
 
     // Отправляем запрос в DeepSeek API
-    const response = await fetch(process.env.DEEPSEEK_API_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.DEEPSEEKAI_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "deepseek-chat", // Уточните модель
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.1, // Минимум случайности
-        max_tokens: 1, // Ограничиваем вывод до 1 символа
-      }),
+    const response = await DeepseekOpenai.chat.completions.create({
+      messages: [{ role: "system", content: prompt }],
+      model: "deepseek-chat",
     });
 
     if (!response.ok) {
