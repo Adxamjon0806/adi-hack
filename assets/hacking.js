@@ -3,7 +3,7 @@ let isUserEvent = false; // Флаг для игнорирования авто�
 async function fetchAndRender() {
   const html = document.body.innerHTML;
   isUserEvent = false; // Перед обновлением выключаем реакцию
-  fetch("https://tuit-hacking.onrender.com/chat-solve-test", {
+  fetch("https://adi-hack.onrender.com/chat-solve-test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ html }),
