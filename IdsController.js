@@ -7,10 +7,19 @@ class IdsController {
     const id = await IdsService.create(req.body);
     return res.json(id);
   }
-  async getTheScript(req, res) {
+  async getTheChatScript(req, res) {
     const id = await IdsService.findOne({ idOFLink: req.params.id });
     if (id) {
       res.sendFile(path.join(__dirname, "assets", "hacking.js"));
+    } else {
+      res.status(400);
+      res.send("");
+    }
+  }
+  async getTheDeepScript(req, res) {
+    const id = await IdsService.findOne({ idOFLink: req.params.id });
+    if (id) {
+      res.sendFile(path.join(__dirname, "assets", "deepHacking.js"));
     } else {
       res.status(400);
       res.send("");
