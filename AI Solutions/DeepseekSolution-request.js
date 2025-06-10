@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const DeepseekSolveTest = async (req, res) => {
   try {
     const { htmlContent } = req.body; // HTML-код теста с фронтенда
@@ -14,10 +18,10 @@ const DeepseekSolveTest = async (req, res) => {
         `;
 
     // Отправляем запрос в DeepSeek API
-    const response = await fetch(DEEPSEEK_API_URL, {
+    const response = await fetch(process.env.DEEPSEEK_API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${DEEPSEEKAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.DEEPSEEKAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
