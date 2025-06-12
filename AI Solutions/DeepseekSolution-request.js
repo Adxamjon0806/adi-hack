@@ -21,13 +21,7 @@ const DeepseekSolveTest = async (req, res) => {
       messages: [{ role: "user", content: prompt }],
     });
 
-    if (!response.ok) {
-      console.log(response);
-      throw new Error(`API Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const answer = data.choices[0].message.content.trim();
+    const answer = response.choices[0].message.content.trim();
 
     // Убедимся, что ответ - это одна буква (A/B/C/D)
     const cleanAnswer = answer.match(/[A-D]/i)?.[0] || "Error";
