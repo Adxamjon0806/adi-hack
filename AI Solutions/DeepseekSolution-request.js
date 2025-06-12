@@ -17,11 +17,12 @@ const DeepseekSolveTest = async (req, res) => {
 
     // Отправляем запрос в DeepSeek API
     const response = await DeepseekOpenai.chat.completions.create({
-      messages: [{ role: "system", content: prompt }],
       model: "deepseek/deepseek-r1",
+      messages: [{ role: "user", content: prompt }],
     });
 
     if (!response.ok) {
+      console.log(response);
       throw new Error(`API Error: ${response.status}`);
     }
 
