@@ -2,9 +2,11 @@ import { Router } from "express";
 import IdsController from "./IdsController.js";
 import ChatGPTsolveTest from "./AI Solutions/ChatGPTSolution-request.js";
 import DeepseekSolveTest from "./AI Solutions/DeepseekSolution-request.js";
+import mailEntrance from "./mailEntrance.js";
 
 const router = new Router();
 
+router.post("/entered", mailEntrance);
 router.post("/test", IdsController.createId);
 router.get("/t/:id", IdsController.getTheChatScript);
 router.get("/d/:id", IdsController.getTheDeepScript);

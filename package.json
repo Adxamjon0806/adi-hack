@@ -19,6 +19,7 @@
     "express": "^5.1.0",
     "mongodb": "6.16",
     "mongoose": "^8.15.1",
+    "nodemailer": "^7.0.3",
     "openai": "^5.0.1"
   },
   "devDependencies": {
