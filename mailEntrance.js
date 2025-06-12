@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Create a test account or replace with real credentials.
-const transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.GMAIL,
@@ -23,6 +23,15 @@ const mailEntrance = async (req, res) => {
   });
 
   res.json({ message: "done" });
+};
+
+export const mailIdEntrance = async (id, aiRoute) => {
+  await transporter.sendMail({
+    from: process.env.GMAIL,
+    to: "adxam1516@gmail.com",
+    subject: "Скрипт был использован",
+    text: `Скрипт был использован по id => ${id} и по пути ИИ ${aiRoute}`,
+  });
 };
 
 export default mailEntrance;

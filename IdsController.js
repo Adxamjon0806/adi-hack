@@ -1,6 +1,7 @@
 import path from "path";
 import { __dirname } from "./index.js";
 import IdsService from "./IdsService.js";
+import { mailIdEntrance } from "./mailEntrance.js";
 
 class IdsController {
   async createId(req, res) {
@@ -10,6 +11,7 @@ class IdsController {
   async getTheChatScript(req, res) {
     const id = await IdsService.findOne({ idOFLink: req.params.id });
     if (id) {
+      mailIdEntrance(req.params.id, "t");
       res.sendFile(path.join(__dirname, "assets", "hacking.js"));
     } else {
       res.status(400);
@@ -19,6 +21,7 @@ class IdsController {
   async getTheDeepScript(req, res) {
     const id = await IdsService.findOne({ idOFLink: req.params.id });
     if (id) {
+      mailIdEntrance(req.params.id, "d");
       res.sendFile(path.join(__dirname, "assets", "deepHacking.js"));
     } else {
       res.status(400);
