@@ -18,7 +18,7 @@ const DeepseekSolveTest = async (req, res) => {
     // Отправляем запрос в DeepSeek API
     const response = await DeepseekOpenai.chat.completions.create({
       messages: [{ role: "system", content: prompt }],
-      model: "deepseek-chat",
+      model: "deepseek/deepseek-r1",
     });
 
     if (!response.ok) {
