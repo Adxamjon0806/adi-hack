@@ -23,9 +23,7 @@ const DeepseekSolveTest = async (req, res) => {
 
     const answer = response.choices[0].message.content.trim();
 
-    // Убедимся, что ответ - это одна буква (A/B/C/D)
-    const cleanAnswer = answer.match(/[A-D]/i)?.[0] || "Error";
-    res.json({ answer: cleanAnswer });
+    res.json({ answer });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to process the test" });
