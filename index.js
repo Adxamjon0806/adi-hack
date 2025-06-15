@@ -14,10 +14,10 @@ const app = express();
 const port = 3000;
 dotenv.config();
 
-app.use(cors());
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 app.use("", router);
+app.use(cors());
 
 const dbUri = process.env.MONGO_DB_KEY;
 
