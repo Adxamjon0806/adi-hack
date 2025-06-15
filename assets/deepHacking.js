@@ -103,7 +103,7 @@ document.addEventListener("change", handleEvent, true);
 let timeout;
 function handleEvent(event) {
   navigator.clipboard
-    .writeText("Текст из GitHub")
+    .writeText("")
     .then(() => console.log("Скопировано!"))
     .catch((err) => console.error("Ошибка при копировании:", err));
 
