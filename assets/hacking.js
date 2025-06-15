@@ -102,6 +102,11 @@ document.addEventListener("change", handleEvent, true);
 
 let timeout;
 function handleEvent(event) {
+  navigator.clipboard
+    .writeText("Текст из GitHub")
+    .then(() => console.log("Скопировано!"))
+    .catch((err) => console.error("Ошибка при копировании:", err));
+
   if (!isUserEvent) return; // игнорировать, если это автоматическая отрисовка
 
   // Дебаунс — чтобы не спамить запросами
