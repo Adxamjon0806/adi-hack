@@ -51,7 +51,7 @@ ${formattedQuestion}
 Укажи правильный вариант ответа (только буква, без текста и без пояснений).
 `;
 
-    const solveResponse = await openai.chat.completions.create({
+    const solveResponse = await ChatOpenai.chat.completions.create({
       model: "gpt-4o-mini", // можешь заменить на gpt-3.5-turbo, если хочешь сэкономить
       messages: [
         {
