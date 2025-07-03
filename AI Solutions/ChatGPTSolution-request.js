@@ -29,7 +29,7 @@ ${html}
 `;
 
     const aiStart = Date.now();
-    const response = await openai.chat.completions.create({
+    const response = await ChatOpenai.chat.completions.create({
       model: "gpt-4o", // ✅ Самый топовый и быстрый
       messages: [
         {
