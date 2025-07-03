@@ -12,70 +12,44 @@ const ChatGPTsolveTest = async (req, res) => {
       return res.status(400).json({ error: "Нет HTML в теле запроса" });
     }
 
-    const structPrompt = `
-    Вот HTML-код страницы, содержащей несколько тестов.
-    Определи активный вопрос (тот, который отображается пользователю, не скрыт).
-    Извлеки его текст и варианты ответа.
-      Преобразуй в формат:
+    // ✅ Чёткий prompt для gpt-4o
+    const prompt = `
+Вот HTML-код страницы, содержащей несколько тестов.
 
-      Вопрос: ...
-      A. ...
-      B. ...
-      ...
-      
-      Не указывай правильный ответ. Только форматированный текст.
-      HTML:
-      ${html}
-      `;
+Найди активный вопрос (тот, который отображается пользователю и не скрыт).  
+Извлеки текст вопроса и все варианты ответов.  
+Определи правильный ответ.  
+Верни только одну букву правильного варианта ответа (например: A, B, C, D).  
+Не добавляй никаких пояснений, текста, комментариев — только одну букву.
+
+HTML:
+${html}
+
+Ответ:
+`;
 
     const aiStart = Date.now();
-    const structResponse = await ChatOpenai.chat.completions.create({
-      model: "gpt-4-0125-preview", // самый умный для парсинга
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o", // ✅ Самый топовый и быстрый
       messages: [
         {
           role: "system",
           content:
-            "Ты эксперт по HTML-тестам, задача — извлечь активный вопрос и варианты.",
+            "Ты эксперт, который извлекает и решает тесты. Возвращай только букву правильного ответа, без пояснений.",
         },
         {
           role: "user",
-          content: structPrompt,
-        },
-      ],
-      temperature: 0,
-    });
-
-    const formattedQuestion = structResponse.choices[0].message.content.trim();
-    console.log("✅ Извлечённый вопрос:\n", formattedQuestion);
-
-    // ✅ Шаг 2: Получаем правильный ответ (mini модель)
-    const solvePrompt = `
-    ${formattedQuestion}
-    
-    Укажи правильный вариант ответа (только буква, без текста и без пояснений).
-    `;
-
-    const solveResponse = await ChatOpenai.chat.completions.create({
-      model: "gpt-4o-mini", // можешь заменить на gpt-3.5-turbo, если хочешь сэкономить
-      messages: [
-        {
-          role: "system",
-          content:
-            "Ты эксперт, который выбирает правильный ответ. Возвращай только букву.",
-        },
-        {
-          role: "user",
-          content: solvePrompt,
+          content: prompt,
         },
       ],
       temperature: 0,
     });
     const aiEnd = Date.now();
 
-    const finalAnswer = solveResponse.choices[0].message.content.trim();
-    console.log("✅ Ответ:", finalAnswer);
+    const answer = response.choices[0].message.content.trim();
+    console.log("✅ Ответ:", answer);
 
-    res.json({ answer: finalAnswer });
+    res.json({ answer });
     const fullEnd = Date.now();
     console.log("Время нейросети:", aiEnd - aiStart, "мс");
     console.log("Полное время запроса:", fullEnd - fullStart, "мс");
