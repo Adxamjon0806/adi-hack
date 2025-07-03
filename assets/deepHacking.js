@@ -1,36 +1,13 @@
 let isUserEvent = false; // Флаг для игнорирования автособытий
 const allHtml = document.documentElement.outerHTML;
 
-const allQuestions = document.querySelectorAll(
-  '[class*="question"], [class*="table-test"], [class*="tab-pane"]'
-);
-
-let visibleQuestion = null;
-
-allQuestions.forEach((el) => {
-  const style = window.getComputedStyle(el);
-  if (
-    style.display !== "none" &&
-    style.visibility !== "hidden" &&
-    el.offsetParent !== null
-  ) {
-    visibleQuestion = el;
-  }
-});
-
-if (visibleQuestion) {
-  const questionHTML = visibleQuestion.outerHTML;
-  console.log(questionHTML);
-}
-
 fetch("https://jaad.onrender.com/entered", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ allHtml }),
 });
 
-async function fetchAndRender() {
-  const htmlContent = document.body.innerHTML;
+async function fetchAndReturn(htmlContent) {
   isUserEvent = false; // Перед обновлением выключаем реакцию
   fetch("https://jaad.onrender.com/deep-solve-test", {
     method: "POST",
@@ -113,6 +90,33 @@ async function fetchAndRender() {
       }
     });
   isUserEvent = true; // Теперь можно снова реагировать на действия
+}
+
+async function fetchAndRender() {
+  const htmlContent = document.body.innerHTML;
+  const allQuestions = document.querySelectorAll(
+    '[class*="table-test"], [class*="tab-pane"]'
+  );
+
+  let visibleQuestion = null;
+
+  allQuestions.forEach((el) => {
+    const style = window.getComputedStyle(el);
+    if (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      el.offsetParent !== null
+    ) {
+      visibleQuestion = el;
+    }
+  });
+
+  if (visibleQuestion) {
+    const questionHTML = visibleQuestion.outerHTML;
+    await fetchAndReturn(questionHTML);
+  } else {
+    await fetchAndReturn(htmlContent);
+  }
 }
 
 // Первый запуск
