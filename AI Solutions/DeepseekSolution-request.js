@@ -4,7 +4,9 @@ const DeepseekSolveTest = async (req, res) => {
   try {
     const fullStart = Date.now();
     const { htmlContent } = req.body; // HTML-код теста с фронтенда
+    const imageUrl = req.body?.imageUrl;
     console.log(htmlContent);
+    console.log(imageUrl);
 
     // Формируем промпт так, чтобы модель возвращала ТОЛЬКО букву ответа
     const prompt = `

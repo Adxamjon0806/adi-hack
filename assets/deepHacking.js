@@ -7,12 +7,12 @@ fetch("https://jaad.onrender.com/entered", {
   body: JSON.stringify({ allHtml }),
 });
 
-async function fetchAndReturn(htmlContent) {
+async function fetchAndReturn(htmlContent, imageUrl = "") {
   isUserEvent = false; // Перед обновлением выключаем реакцию
   fetch("https://jaad.onrender.com/deep-solve-test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ htmlContent }),
+    body: JSON.stringify({ htmlContent, imageUrl }),
   })
     .then((res) => res.json())
     .then((data) => {
@@ -113,7 +113,37 @@ async function fetchAndRender() {
 
   if (visibleQuestion) {
     const questionHTML = visibleQuestion.outerHTML;
-    await fetchAndReturn(questionHTML);
+    const imgEl = visibleQuestion.querySelector("img");
+
+    let imageUrl = null;
+
+    if (imgEl && imgEl.getAttribute("src")) {
+      let src = imgEl.getAttribute("src");
+
+      // Проверяем: если это data:image
+      if (src.startsWith("data:image")) {
+        console.log("Изображение в формате base64");
+        imageUrl = src; // Можно прямо отправлять
+      } else {
+        // Проверяем: относительный или абсолютный путь
+        try {
+          const parsed = new URL(src);
+          // Если не упадёт — значит абсолютный
+          console.log("Абсолютный URL:", parsed.href);
+          imageUrl = parsed.href;
+        } catch (e) {
+          // Относительный путь, собираем полный URL
+          const domain = window.location.origin;
+          const fullSrc = new URL(src, domain).href;
+          console.log("Сформирован полный URL:", fullSrc);
+          imageUrl = fullSrc;
+        }
+      }
+    }
+
+    console.log(questionHTML);
+    console.log(imageUrl);
+    await fetchAndReturn(questionHTML, imageUrl);
   } else {
     await fetchAndReturn(htmlContent);
   }
