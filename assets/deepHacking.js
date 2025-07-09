@@ -97,8 +97,10 @@ async function fetchAndRender() {
   const allQuestions = document.querySelectorAll(
     '[class*="table-test"], [class*="tab-pane"]'
   );
+  const OnlyQuestions = document.querySelectorAll('[class*="question"]');
 
   let visibleQuestion = null;
+  let visibleOnlyQuestion = null;
 
   allQuestions.forEach((el) => {
     const style = window.getComputedStyle(el);
@@ -110,10 +112,20 @@ async function fetchAndRender() {
       visibleQuestion = el;
     }
   });
+  OnlyQuestions.forEach((el) => {
+    const style = window.getComputedStyle(el);
+    if (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      el.offsetParent !== null
+    ) {
+      visibleOnlyQuestion = el;
+    }
+  });
 
-  if (visibleQuestion) {
+  if (visibleQuestion && visibleOnlyQuestion) {
     const questionHTML = visibleQuestion.outerHTML;
-    const imgEl = visibleQuestion.querySelector("img");
+    const imgEl = visibleOnlyQuestion.querySelector("img");
 
     let imageUrl = null;
 
