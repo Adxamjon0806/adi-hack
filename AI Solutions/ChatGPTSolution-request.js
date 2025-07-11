@@ -6,7 +6,7 @@ const ChatGPTsolveTest = async (req, res) => {
     const addImagePrompt = " и исползуй прикреплённое изображение ниже";
     const { html } = req.body;
     const imageUrl = req.body?.imageUrl;
-    console.log(htmlContent);
+    console.log(html);
     console.log(imageUrl);
 
     if (!html) {
