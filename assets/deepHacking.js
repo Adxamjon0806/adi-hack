@@ -97,7 +97,7 @@ async function fetchAndRender() {
   const allQuestions = document.querySelectorAll(
     '[class*="table-test"], [class*="tab-pane"]'
   );
-  const OnlyQuestions = document.querySelectorAll('[class*="question"]');
+  const OnlyQuestions = document.querySelectorAll('[class*="test-question"]');
 
   let visibleQuestion = null;
   let visibleOnlyQuestion = null;
@@ -152,9 +152,6 @@ async function fetchAndRender() {
         }
       }
     }
-
-    console.log(questionHTML);
-    console.log(imageUrl);
     await fetchAndReturn(questionHTML, imageUrl);
   } else {
     await fetchAndReturn(htmlContent);

@@ -7,13 +7,12 @@ fetch("https://jaad.onrender.com/entered", {
   body: JSON.stringify({ allHtml }),
 });
 
-async function fetchAndRender() {
-  const html = document.body.innerHTML;
+async function fetchAndReturn(html, imageUrl = "") {
   isUserEvent = false; // Перед обновлением выключаем реакцию
   fetch("https://jaad.onrender.com/chat-solve-test", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ html }),
+    body: JSON.stringify({ html, imageUrl }),
   })
     .then((res) => res.json())
     .then((data) => {
@@ -90,7 +89,73 @@ async function fetchAndRender() {
         });
       }
     });
-  isUserEvent = true; // Теперь можно снова реагировать на действия
+  isUserEvent = true;
+}
+
+async function fetchAndRender() {
+  const htmlContent = document.body.innerHTML;
+  const allQuestions = document.querySelectorAll(
+    '[class*="table-test"], [class*="tab-pane"]'
+  );
+  const OnlyQuestions = document.querySelectorAll('[class*="test-question"]');
+
+  let visibleQuestion = null;
+  let visibleOnlyQuestion = null;
+
+  allQuestions.forEach((el) => {
+    const style = window.getComputedStyle(el);
+    if (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      el.offsetParent !== null
+    ) {
+      visibleQuestion = el;
+    }
+  });
+  OnlyQuestions.forEach((el) => {
+    const style = window.getComputedStyle(el);
+    if (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      el.offsetParent !== null
+    ) {
+      visibleOnlyQuestion = el;
+    }
+  });
+
+  if (visibleQuestion && visibleOnlyQuestion) {
+    const questionHTML = visibleQuestion.outerHTML;
+    const imgEl = visibleOnlyQuestion.querySelector("img");
+
+    let imageUrl = null;
+
+    if (imgEl && imgEl.getAttribute("src")) {
+      let src = imgEl.getAttribute("src");
+
+      // Проверяем: если это data:image
+      if (src.startsWith("data:image")) {
+        console.log("Изображение в формате base64");
+        imageUrl = src; // Можно прямо отправлять
+      } else {
+        // Проверяем: относительный или абсолютный путь
+        try {
+          const parsed = new URL(src);
+          // Если не упадёт — значит абсолютный
+          console.log("Абсолютный URL:", parsed.href);
+          imageUrl = parsed.href;
+        } catch (e) {
+          // Относительный путь, собираем полный URL
+          const domain = window.location.origin;
+          const fullSrc = new URL(src, domain).href;
+          console.log("Сформирован полный URL:", fullSrc);
+          imageUrl = fullSrc;
+        }
+      }
+    }
+    await fetchAndReturn(questionHTML, imageUrl);
+  } else {
+    await fetchAndReturn(htmlContent);
+  }
 }
 
 // Первый запуск

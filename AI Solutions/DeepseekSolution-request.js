@@ -27,7 +27,6 @@ const DeepseekSolveTest = async (req, res) => {
         `;
 
     const aiStart = Date.now();
-    // Отправляем запрос в DeepSeek API
     if (imageUrl) {
       const response = await ChatOpenai.chat.completions.create({
         model: "gpt-4o",
