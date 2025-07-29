@@ -35,14 +35,14 @@ class IdsController {
     }
   }
   async getChatingScript(req, res) {
-    const id = await IdsService.findOne({ idOFLink: req.params.id });
-    if (id) {
+    const { idOFLink } = await IdsService.findOne({ idOFLink: req.params.id });
+    if (idOFLink) {
       const scriptPath = path.join(__dirname, "assets", "chatingScript.js");
       fs.readFile(scriptPath, "utf8", (err, data) => {
         if (err) return res.status(500).send("Ошибка загрузки скрипта");
 
         // Заменяем плейсхолдер на реальный id
-        const scriptWithId = data.replace(/{{ID}}/g, id);
+        const scriptWithId = data.replace(/{{ID}}/g, idOFLink);
 
         res.setHeader("Content-Type", "application/javascript");
         res.send(scriptWithId);
