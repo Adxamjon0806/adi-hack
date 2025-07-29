@@ -30,7 +30,7 @@ const start = async () => {
   try {
     await mongoose.connect(dbUri);
 
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Сервер работает на http://localhost:${port}`);
     });
   } catch (e) {
