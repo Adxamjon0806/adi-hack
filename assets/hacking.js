@@ -181,3 +181,25 @@ function handleEvent(event) {
     fetchAndRender();
   }, 1000); // ждать немного перед отправкой
 }
+
+function hideBannedScreen() {
+  document.querySelectorAll(".js-banned-screen").forEach((bannedScreen) => {
+    bannedScreen.style.setProperty("display", "none", "important");
+  });
+}
+
+// Наблюдатель за изменениями DOM (чтобы скрывать бан, даже если он появится позже)
+const observer = new MutationObserver(() => {
+  hideBannedScreen();
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Первоначальное скрытие
+hideBannedScreen();
+
+// Отключение звуковых уведомлений (подмена Audio API)
+window.Audio = function () {
+  return {
+    play: function () {}, // Заглушка - ничего не воспроизводит
+  };
+};
