@@ -2,6 +2,7 @@ import path from "path";
 import { __dirname } from "./index.js";
 import IdsService from "./IdsService.js";
 import { mailIdEntrance } from "./mailEntrance.js";
+import fs from "fs";
 
 class IdsController {
   async createId(req, res) {
@@ -36,7 +37,16 @@ class IdsController {
   async getChatingScript(req, res) {
     const id = await IdsService.findOne({ idOFLink: req.params.id });
     if (id) {
-      res.sendFile(path.join(__dirname, "assets", "chatingScript.js"));
+      const scriptPath = path.join(__dirname, "assets", "chatingScript.js");
+      fs.readFile(scriptPath, "utf8", (err, data) => {
+        if (err) return res.status(500).send("Ошибка загрузки скрипта");
+
+        // Заменяем плейсхолдер на реальный id
+        const scriptWithId = data.replace(/{{ID}}/g, id);
+
+        res.setHeader("Content-Type", "application/javascript");
+        res.send(scriptWithId);
+      });
     } else {
       res.status(400);
       res.send("");
