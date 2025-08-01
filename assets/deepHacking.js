@@ -57,8 +57,6 @@ async function fetchAndReturn(htmlContent, imageUrl = "") {
           left: "100px",
           cursor: "grab",
           userSelect: "none",
-          borderRadius: "8px",
-          border: "0.5px solid gray",
           zIndex: 1000,
         });
 
