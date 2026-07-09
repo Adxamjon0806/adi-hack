@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
-const Id = new mongoose.Schema({
-  idOFLink: { type: String, required: true },
-});
+// const Id = new mongoose.Schema({
+//   idOFLink: { type: String, required: true },
+// });
 
-export default mongoose.model("Id", Id);
+// export default mongoose.model("Id", Id);

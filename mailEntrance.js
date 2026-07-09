@@ -30,7 +30,9 @@ export const mailIdEntrance = async (id, aiRoute) => {
     from: process.env.GMAIL,
     to: "adxam1516@gmail.com",
     subject: "Скрипт был использован",
-    text: `Скрипт был использован по id => ${id} и по пути ИИ ${aiRoute}`,
+    text: id
+      ? `Скрипт был использован по id => ${id} и по пути ИИ ${aiRoute}`
+      : `Скрипт был использован по пути ИИ ${aiRoute}`,
   });
 };
 
